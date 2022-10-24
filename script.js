@@ -1,15 +1,28 @@
 window.onload = ()=>{
 
+    var isMobile = window.innerWidth < window.innerHeight;
+
     let board = document.querySelector(".board")
     let info = document.querySelector(".info")
     let gameover = document.querySelector(".gameover")
     let thescore = document.querySelector(".thescore")
     let highScore = document.querySelector(".highScore")
     let scoreDiv = document.querySelector(".score")
-    const width = 35;
-    const height = 50;
+    var width = 35;
+    var height = 50;
     const speed = 1;
     var length = 2;
+    
+    if(isMobile) {
+        width = parseInt((window.innerWidth - 30)/ 10)
+        height = parseInt((window.innerHeight/2)/ 10)
+        document.querySelector(".info h2").innerHTML = "Click here to start"
+        info.addEventListener('click', ()=>{
+            // console.log("Clicked")
+            start()
+        })
+    }
+
     var theHighScore = window.localStorage.getItem('highScore') || '0';
     theHighScore = parseInt(theHighScore);
     highScore.innerHTML = theHighScore
@@ -18,6 +31,7 @@ window.onload = ()=>{
     board.style.width = width*10+"px"
     scoreDiv.style.width = width*10+"px"
     board.style.height = height*10+"px"
+
 
     function fillBoard() {
         board.innerHTML = ""
@@ -76,7 +90,7 @@ window.onload = ()=>{
 		openFullscreen(body)
         setup();
         loop = setInterval(()=>{
-            console.log("Loop")
+            // console.log("Loop")
             toLoop()
             
         }, 100*speed)
@@ -228,7 +242,7 @@ window.onload = ()=>{
             setScore();
             setFood();
             if(length-2 % 5) {
-                speed = speed - 0.2
+                // speed = speed - 0.2
             }
         }
     }
@@ -252,7 +266,7 @@ window.onload = ()=>{
         let part = false;
         snakeArr.forEach((cord, i)=>{
             if(cord.x == x && cord.y == y && i!=0) {
-                console.log(i)
+                // console.log(i)
                 part = true
             }
         })
@@ -303,9 +317,6 @@ window.onload = ()=>{
     };                                                
                                                                             
     function handleTouchMove(evt) {
-        if(!isStarted) {
-            start();
-        }
         handleTouchStart(evt)
         if ( ! xDownP || ! yDownP ) {
             return;
@@ -320,21 +331,21 @@ window.onload = ()=>{
         if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
             if ( xDiff > 0 ) {
                 /* left */ 
-                console.log("Swipe Left")
+                // console.log("Swipe Left")
                 left();
             } else {
                 /* right */
-                console.log("Swipe Right")
+                // console.log("Swipe Right")
                 right()
             }                       
         } else {
             if ( yDiff > 0 ) {
                 /* up */ 
-                console.log("Swipe Up")
+                // console.log("Swipe Up")
                 up()
             } else { 
                 /* down */
-                console.log("Swipe Down")
+                // console.log("Swipe Down")
                 down()
             }                                                                 
         }
