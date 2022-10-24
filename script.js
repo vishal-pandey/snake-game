@@ -4,13 +4,19 @@ window.onload = ()=>{
     let info = document.querySelector(".info")
     let gameover = document.querySelector(".gameover")
     let thescore = document.querySelector(".thescore")
+    let highScore = document.querySelector(".highScore")
+    let scoreDiv = document.querySelector(".score")
     const width = 35;
     const height = 50;
     const speed = 1;
     var length = 2;
+    var theHighScore = window.localStorage.getItem('highScore') || '0';
+    theHighScore = parseInt(theHighScore);
+    highScore.innerHTML = theHighScore
     var snakeArr = [];
 
     board.style.width = width*10+"px"
+    scoreDiv.style.width = width*10+"px"
     board.style.height = height*10+"px"
 
     function fillBoard() {
@@ -262,7 +268,13 @@ window.onload = ()=>{
     }
 
     function setScore() {
-        thescore.innerHTML = length - 2;
+        let score = length - 2;
+        thescore.innerHTML = score;
+        if(score > theHighScore) {
+            theHighScore = score;
+            window.localStorage.setItem('highScore', theHighScore);
+            highScore.innerHTML = theHighScore;
+        }
     }
 
 
